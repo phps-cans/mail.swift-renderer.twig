@@ -1,30 +1,30 @@
 <?php
 
-namespace TheCodingMachine\Mail\Template;
+namespace PSCS\Mail\Swift\RendererTwig;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-class SwiftTwigMailTemplateTest extends \PHPUnit_Framework_TestCase
+class MailSwiftRendererTwigTest extends \PHPUnit_Framework_TestCase
 {
     public function testUnvalidTemplate()
     {
         $twigEnvironnement = new \Twig_Environment(new \Twig_Loader_Filesystem([__DIR__.'/TestTemplate']));
-        $swiftTwigMailGenerator = new SwiftTwigMailTemplate($twigEnvironnement, 'UnvalidTemplate.twig');
+        $swiftTwigMailGenerator = new MailSwiftRendererTwig($twigEnvironnement, 'UnvalidTemplate.twig');
         $this->expectException(MissingBlockException::class);
-        $swiftTwigMailGenerator->getMail();
+        $swiftTwigMailGenerator->renderMail();
     }
 
     public function testValidTemplate()
     {
         $twigEnvironnement = new \Twig_Environment(new \Twig_Loader_Filesystem([__DIR__.'/TestTemplate']));
-        $swiftTwigMailGenerator = new SwiftTwigMailTemplate($twigEnvironnement, 'ValidTemplate.twig');
-        $swiftTwigMailGenerator->setFromAdresses('shelDon@thecodingmachine.com');
-        $swiftTwigMailGenerator->setBccAdresses('shelDon@thecodingmachine.com');
-        $swiftTwigMailGenerator->setCcAdresses('shelDon@thecodingmachine.com');
+        $swiftTwigMailGenerator = new MailSwiftRendererTwig($twigEnvironnement, 'ValidTemplate.twig');
+        $swiftTwigMailGenerator->setFromAddresses('shelDon@thecodingmachine.com');
+        $swiftTwigMailGenerator->setBccAddresses('shelDon@thecodingmachine.com');
+        $swiftTwigMailGenerator->setCcAddresses('shelDon@thecodingmachine.com');
         $swiftTwigMailGenerator->setReturnPath('shelDon@thecodingmachine.com');
         $swiftTwigMailGenerator->setReadReceiptTo('shelDon@thecodingmachine.com');
-        $swiftTwigMailGenerator->setReplyToAdresses('shelDon@thecodingmachine.com');
-        $swiftTwigMailGenerator->setToAdresses('shelDon@thecodingmachine.com');
+        $swiftTwigMailGenerator->setReplyToAddresses('shelDon@thecodingmachine.com');
+        $swiftTwigMailGenerator->setToAddresses('shelDon@thecodingmachine.com');
         $swiftTwigMailGenerator->setToName('ShelDon');
         $swiftTwigMailGenerator->setFromName('ShelDon');
         $swiftTwigMailGenerator->setBccName('ShelDon');

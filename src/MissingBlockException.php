@@ -1,8 +1,8 @@
 <?php
 
-namespace TheCodingMachine\Mail\Template;
+namespace PSCS\Mail\Swift\RendererTwig;
 
-class MissingBlockException extends \RuntimeException implements MailTemplateException
+class MissingBlockException extends \RuntimeException implements MailRendererException
 {
     /**
      * @param array $blockNames
@@ -14,6 +14,6 @@ class MissingBlockException extends \RuntimeException implements MailTemplateExc
         $blocksName = implode(',', $blockNames);
         $errorMsg = ($blocksName === '') ? 'No blocks found.' : 'Blocks found '.$blocksName.'.';
 
-        return new self('Your template needs a subject block, a body_html block and a body_text block.'.$errorMsg);
+        return new self('Your template needs a subject block and a body_html block.'.$errorMsg);
     }
 }
